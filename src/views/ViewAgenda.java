@@ -55,7 +55,7 @@ public class ViewAgenda extends javax.swing.JPanel {
 
         jbtn_ultimo.setText(">|");
 
-        jl_telefono.setText("Teléfono");
+        jl_telefono.setText("Teléfono:");
 
         jb_nuevo.setText("Nuevo");
 

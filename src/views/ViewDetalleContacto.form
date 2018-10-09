@@ -60,7 +60,7 @@
     <Component class="javax.swing.JLabel" name="jl_telefono">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="telefono"/>
+        <Property name="text" type="java.lang.String" value="tel&#xe9;fono"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

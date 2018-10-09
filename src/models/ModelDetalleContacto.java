@@ -7,7 +7,7 @@ package models;
 
 /**
  *
- * @author Zeo
+ * @author Esteban Islas
  */
 public class ModelDetalleContacto {
     private int id_contacto;

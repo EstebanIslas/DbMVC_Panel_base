@@ -39,7 +39,7 @@ public class ViewDetalleContacto extends javax.swing.JPanel {
         jl_email.setText("email");
 
         jl_telefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_telefono.setText("telefono");
+        jl_telefono.setText("teléfono");
 
         jl_id_contacto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_id_contacto.setText("id contacto");
