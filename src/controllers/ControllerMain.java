@@ -104,6 +104,7 @@ public class ControllerMain {
      */
     private void jmi_detalle_contacto_actionPerformed() {
         // 
+        controllerDetalleContacto.modelDetalleContacto.setId_contacto(controllerAgenda.modelAgenda.getId_contacto());
         controllerDetalleContacto.modelDetalleContacto.setNombre(controllerAgenda.modelAgenda.getNombre());
         controllerDetalleContacto.modelDetalleContacto.setEmail(controllerAgenda.modelAgenda.getEmail());
         controllerDetalleContacto.modelDetalleContacto.setTelefono(controllerAgenda.modelAgenda.getTelefono());

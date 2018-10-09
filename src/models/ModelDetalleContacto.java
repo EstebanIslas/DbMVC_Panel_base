@@ -10,6 +10,7 @@ package models;
  * @author Zeo
  */
 public class ModelDetalleContacto {
+    private int id_contacto;
     private String nombre;
     private String email;
     private String telefono;
@@ -37,6 +38,14 @@ public class ModelDetalleContacto {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public int getId_contacto() {
+        return id_contacto;
+    }
+
+    public void setId_contacto(int id_contacto) {
+        this.id_contacto = id_contacto;
     }
 
 }

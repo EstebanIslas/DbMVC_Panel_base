@@ -32,6 +32,7 @@ public class ControllerDetalleContacto {
      * viewDetalleContacto.
      */
     public final void initView(){
+        viewDetalleContacto.jl_id_contacto.setText(String.valueOf(modelDetalleContacto.getId_contacto()));
         viewDetalleContacto.jl_nombre.setText(modelDetalleContacto.getNombre());
         viewDetalleContacto.jl_email.setText(modelDetalleContacto.getEmail());
         viewDetalleContacto.jl_telefono.setText(modelDetalleContacto.getTelefono());

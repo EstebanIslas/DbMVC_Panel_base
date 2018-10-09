@@ -35,6 +35,16 @@ public class ControllerAgenda {
             } else if (e.getSource() == viewAgenda.jbtn_ultimo) {
                 jbtn_ultimo_actionPerformed();
             }
+            /////////////////////////////////////////////////////////
+            else if (e.getSource() == viewAgenda.jb_nuevo) {
+                jb_nuevo_actionPerformed();
+            }else if (e.getSource() == viewAgenda.jb_editar) {
+                jb_editar_actionPerformed();
+            }else if (e.getSource() == viewAgenda.jb_guardar) {
+                jb_guardar_actionPerformed();
+            }else if (e.getSource() == viewAgenda.jb_eliminar) {
+                jb_eliminar_actionPerformed();
+            }
 
         }
 
@@ -59,16 +69,33 @@ public class ControllerAgenda {
      */
     private void initDB() {
         modelAgenda.conectarDB();
+        viewAgenda.jtf_id_contacto.setText(String.valueOf(modelAgenda.getId_contacto()));
         viewAgenda.jtf_nombre.setText(modelAgenda.getNombre());
         viewAgenda.jtf_email.setText(modelAgenda.getEmail());
         viewAgenda.jtf_telefono.setText(modelAgenda.getTelefono());
         habilitarCajas(false);
+        habilitarDesplazamiento(true);
+        //## No es visible, pero se utilizara para el crud ##//
+        viewAgenda.jtf_id_contacto.setVisible(false);
+        viewAgenda.jtf_id_contacto.setEnabled(false);
+        
+        viewAgenda.jb_eliminar.setEnabled(true);
+        viewAgenda.jb_nuevo.setEnabled(true);
+        viewAgenda.jb_editar.setEnabled(true);
+        viewAgenda.jb_guardar.setEnabled(false);
         
     }
     private void habilitarCajas(boolean descicion){
         viewAgenda.jtf_nombre.setEditable(descicion);
         viewAgenda.jtf_email.setEditable(descicion);
         viewAgenda.jtf_telefono.setEditable(descicion);
+    }
+    
+    private void habilitarDesplazamiento(boolean descicion){
+        viewAgenda.jbtn_primero.setEnabled(descicion);
+        viewAgenda.jbtn_anterior.setEnabled(descicion);
+        viewAgenda.jbtn_siguiente.setEnabled(descicion);
+        viewAgenda.jbtn_ultimo.setEnabled(descicion);
     }
 
 //    /**
@@ -89,6 +116,11 @@ public class ControllerAgenda {
         viewAgenda.jbtn_anterior.addActionListener(actionListener);
         viewAgenda.jbtn_siguiente.addActionListener(actionListener);
         viewAgenda.jbtn_ultimo.addActionListener(actionListener);
+        
+        viewAgenda.jb_nuevo.addActionListener(actionListener);
+        viewAgenda.jb_editar.addActionListener(actionListener);
+        viewAgenda.jb_guardar.addActionListener(actionListener);
+        viewAgenda.jb_eliminar.addActionListener(actionListener);
     }
 
     /**
@@ -128,11 +160,78 @@ public class ControllerAgenda {
     }
 
     /**
-     * Muestra el nombre y email almacenados en el modelAgenda en el viewAgenda.
+     * Muestra el nombre, email, telefono e identificador id_contacto almacenados en el modelAgenda en el viewAgenda.
      */
     private void setValues() {
+        viewAgenda.jtf_id_contacto.setText(String.valueOf(modelAgenda.getId_contacto()));
         viewAgenda.jtf_nombre.setText(modelAgenda.getNombre());
         viewAgenda.jtf_email.setText(modelAgenda.getEmail());
         viewAgenda.jtf_telefono.setText(modelAgenda.getTelefono());
     }
+    
+    /**
+     * Método que habilita la edicion de las cajas de texto
+     * Deshabilita los botones de dezplazamiento
+     * A la variable Descicion se le asigna el valor nuevo para saber que se va a crear un nuevo registro
+     */
+    private void jb_nuevo_actionPerformed(){
+        System.err.println("Action del boton nuevo");
+        habilitarCajas(true);
+        habilitarDesplazamiento(false);
+        modelAgenda.setDescicion("nuevo");
+        //modelAgenda.nuevoRegistro();
+        viewAgenda.jtf_nombre.setText("");
+        viewAgenda.jtf_email.setText("");
+        viewAgenda.jtf_telefono.setText("");
+        viewAgenda.jb_eliminar.setEnabled(false);
+        viewAgenda.jb_nuevo.setEnabled(false);
+        viewAgenda.jb_editar.setEnabled(false);
+        viewAgenda.jb_guardar.setEnabled(true);
+        
+    }
+    
+    /**
+     * Método que realiza el guardado de datos sean nuevos o actualizaciones
+     * Llama al metodo guardarRegistro del modelo como parametro lo que contienen sus cajas de texto
+     * Hibilitar y deshabilitar botones de CRUD
+     */
+    public void jb_guardar_actionPerformed() {
+        System.err.println("Action del boton jb_insertar");
+        modelAgenda.guardarRegistro(viewAgenda.jtf_nombre.getText(), viewAgenda.jtf_email.getText(), viewAgenda.jtf_telefono.getText(), Integer.parseInt(viewAgenda.jtf_id_contacto.getText()));
+        habilitarDesplazamiento(true);
+        habilitarCajas(false);
+        viewAgenda.jb_eliminar.setEnabled(true);
+        viewAgenda.jb_nuevo.setEnabled(true);
+        viewAgenda.jb_editar.setEnabled(true);
+        viewAgenda.jb_guardar.setEnabled(false);
+    }
+    
+    /**
+     * Método que elimina un dato de la BD
+     * Llama al metodo borrarRegistro del modelo como parametro el id del dato que queremos borrar
+     * Llama al metodo jbtn_ultimo_actionPerformed para indicar al usuario el cambio y actualizacion de datos
+     */
+    private void jb_eliminar_actionPerformed(){
+        System.err.println("Action del boton jb_eliminar");
+        modelAgenda.borrarRegistro(Integer.parseInt(viewAgenda.jtf_id_contacto.getText()));
+        jbtn_ultimo_actionPerformed();
+    }
+    
+    /**
+     * Método para realizar actualizaciones de datos
+     * A la variable Descicion se le asigna el valor editar para saber que se esta actualizando el dato
+     * Habilitar cajas de texto para su edicion 
+     * Deshabilita los botones de dezplazamiento
+     * Habilita y deshabilita botones del CRUD
+     */
+    public void jb_editar_actionPerformed() {
+        System.err.println("Action del boton jb_modificar");
+        modelAgenda.setDescicion("editar");
+        habilitarCajas(true);
+        habilitarDesplazamiento(true);
+        viewAgenda.jb_eliminar.setEnabled(false);
+        viewAgenda.jb_nuevo.setEnabled(false);
+        viewAgenda.jb_editar.setEnabled(false);
+        viewAgenda.jb_guardar.setEnabled(true);
+     }
 }
